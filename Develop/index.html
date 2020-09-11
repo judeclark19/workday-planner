@@ -32,13 +32,14 @@
       <h1 id="todays-date"></h1>
       <h2 id="current-time">The current time is:</h2>
       <!-- Reference for an agenda row after it is dynamically built -->
-      <!-- <div class="row" id="9am">
-        <div class="col-sm-1 hour" id="9am-label">09.00</div>
-        <div class="col-sm-10 time-block" id="9am-input">
-          <textarea>Enter your notes for the hour</textarea>
+      <div class="row">
+        <div class="col-sm-1 hour" data-hour="08">08.00</div>
+        <div class="col-sm-10 time-block" data-hour="08">
+          <textarea class="description">Enter your notes for the hour</textarea>
         </div>
-        <div class="col-sm-1 saveBtn" id="9am-save">Save notes</div>
-      </div> -->
+        <div class="col-sm-1 saveBtn" data-hour="08" id="hard-save">Save notes</div>
+      </div>
+      <!-- Reference for an agenda row after it is dynamically built -->
     </div>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
