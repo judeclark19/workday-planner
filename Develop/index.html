@@ -29,7 +29,23 @@
       <p id="currentDay" class="lead"></p>
     </header>
     <div class="container">
-      <!-- Timeblocks go here -->
+      <div class="row">
+        <div class="col-xs-12 description" id="todays-date"><h1>Today's Date</h1></div>
+    </div>
+      <div class="row time-block" id="9am">
+        <div class="col-xs-1 empty"></div>
+        <div class="col-xs-1 hour" id="9am-label">09.00</div>
+        <div class="col-xs-8" id="9am-input"><textarea>User types here</textarea></div>
+        <div class="col-xs-1" id="9am-save">Save button</div>
+        <div class="col-xs-1"></div>
+      </div>
+      <div class="row time-block" id="10am">
+        <div class="col-xs-1 empty"></div>
+        <div class="col-xs-1 hour" id="10am-label">10.00</div>
+        <div class="col-xs-8" id="10am-input">User types here</div>
+        <div class="col-xs-1" id="10am-save">Save button</div>
+        <div class="col-xs-1"></div>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
