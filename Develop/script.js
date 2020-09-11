@@ -60,8 +60,10 @@ $("#current-time").text(n)
     console.log("clicked save button number "+ ($(this).attr("data-hour")))
 
     console.log(
-        $(this).siblings(".description").val()
+        $(this).siblings()
     )
+
+    
     // localStorage.setItem($(this).attr('data-hour'), $(this).siblings(".description").val);
 });
   // console log clicked save
