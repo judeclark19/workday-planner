@@ -3,12 +3,15 @@ $(function () {
 
   var now = moment();
 
-  var currentHour = 12;
-  // var currentHour = moment().format("HH");
+  // hard code hour, uncomment for testing purposes
+  // var currentHour = 12;
+  var currentHour = moment().format("HH");
   var currentDate = now.format("dddd, D MMMM");
 
+  //display current date
   $("#currentDay").text(currentDate);
 
+  //Display current time every second
   setInterval(function () {
     var d = new Date();
     var n = d.toLocaleTimeString();
@@ -17,20 +20,24 @@ $(function () {
 
   var hoursOfTheDay = ["09", "10", "11", "12", "13", "14", "15", "16", "17"];
 
-  //Loop: dynamically creates the agenda rows
+  //Loop: dynamically creates the agenda rows out of the hoursOfTheDay array
   for (let i = 0; i < hoursOfTheDay.length; i++) {
+    //create a row
     var newRow = $("<div class='row'>");
 
+    //create the hour 'cell'
     var hourDisplay = $("<div class='col-sm-1 hour'>").text(
       hoursOfTheDay[i] + ".00"
     );
 
+    //create the textarea
     var notesInputArea = $(
       "<textarea class='description col-sm-10 time-block'>"
     );
-    // notesInputArea.text("(no notes. type here to add notes)")
+    // add metadata
     notesInputArea.attr("data-hour", hoursOfTheDay[i]);
 
+    //apply past, present, future
     if (notesInputArea.attr("data-hour") < currentHour) {
       notesInputArea.addClass("past");
     } else if (notesInputArea.attr("data-hour") == currentHour) {
@@ -39,24 +46,24 @@ $(function () {
       notesInputArea.addClass("future");
     }
 
-    //If a note is already stored, display it on page load
+    //If a text note is already stored, display it upon page load
     if (localStorage.getItem(hoursOfTheDay[i]) != null) {
       notesInputArea.text(localStorage.getItem(hoursOfTheDay[i]));
     }
 
+    //build the save button
     var saveIcon = $("<i class='fas fa-save'>");
     var saveButton = $("<button class='col-sm-1 saveBtn'>");
-
     saveButton.append(saveIcon);
-
+    //include metadata
     saveButton.attr("data-hour", hoursOfTheDay[i]);
 
+    //append it all together
     newRow.append(hourDisplay, notesInputArea, saveButton);
-
     $(".container").append(newRow);
   }
 
-  //store new notes when save is clicked
+  //store new notes when a save button is clicked
   $(document).on("click", ".saveBtn", function (event) {
     var storageHour = $(this).attr("data-hour");
     var storageText = $(this).siblings(".description").val();
