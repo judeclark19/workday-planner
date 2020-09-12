@@ -7,7 +7,7 @@ $(function () {
   // var currentHour = moment().format("HH");
   var currentDate = now.format("dddd, D MMMM");
 
-  $("#todays-date").text(currentDate);
+  $("#currentDay").text(currentDate);
 
   setInterval(function () {
     var d = new Date();
