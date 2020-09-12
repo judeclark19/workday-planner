@@ -1,11 +1,12 @@
-$(function () { //document ready
+$(function () {
+  //document ready
 
   var now = moment();
 
   var currentHour = 12;
-    // var currentHour = moment().format("HH");
+  // var currentHour = moment().format("HH");
   var currentDate = now.format("dddd, D MMMM");
-//   var currentTime = now.format("HH:mm:ss");
+
   $("#todays-date").text(currentDate);
 
   setInterval(function () {
@@ -24,41 +25,42 @@ $(function () { //document ready
       hoursOfTheDay[i] + ".00"
     );
 
-    var notesInputArea = $("<textarea class='description col-sm-10'>");
+    var notesInputArea = $("<textarea class='description col-sm-10 time-block'>");
     // notesInputArea.text("(no notes. type here to add notes)")
     notesInputArea.attr("data-hour", hoursOfTheDay[i]);
 
-
     if (notesInputArea.attr("data-hour") < currentHour) {
-        notesInputArea.addClass("past");
+      notesInputArea.addClass("past");
     } else if (notesInputArea.attr("data-hour") == currentHour) {
-        notesInputArea.addClass("present");
+      notesInputArea.addClass("present");
     } else {
-        notesInputArea.addClass("future");
+      notesInputArea.addClass("future");
     }
 
     //If a note is already stored, display it on page load
-   if (localStorage.getItem(hoursOfTheDay[i])!=null){
-   notesInputArea.text(localStorage.getItem(hoursOfTheDay[i]))
-   }
+    if (localStorage.getItem(hoursOfTheDay[i]) != null) {
+      notesInputArea.text(localStorage.getItem(hoursOfTheDay[i]));
+    }
 
     var saveButton = $("<button class='col-sm-1 saveBtn'>").text(
-      "click to save"
-    );
+      "SAVE")
+
+    // var saveButton = $("<button class='col-sm-1 saveBtn'>")
+    // var saveImg = $("<img>").attr("src", "https://www.iconfinder.com/data/icons/apple-classic/100/Apple_classic_10Icon_5px_grid-04-512.png")
+    // saveButton.append(saveImg);
+    
     saveButton.attr("data-hour", hoursOfTheDay[i]);
 
     newRow.append(hourDisplay, notesInputArea, saveButton);
 
     $(".container").append(newRow);
-
   }
 
   //store new notes when save is clicked
   $(document).on("click", ".saveBtn", function (event) {
-      var storageHour = $(this).attr("data-hour")
-      var storageText = $(this).siblings(".description").val()
+    var storageHour = $(this).attr("data-hour");
+    var storageText = $(this).siblings(".description").val();
 
     localStorage.setItem(storageHour, storageText);
-
   });
 });
