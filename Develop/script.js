@@ -20,7 +20,7 @@ $(function () {
 
   var hoursOfTheDay = ["09", "10", "11", "12", "13", "14", "15", "16", "17"];
 
-  //Loop: dynamically creates the agenda rows out of the hoursOfTheDay array
+  //Loop: dynamically creates the agenda rows using the hoursOfTheDay array
   for (let i = 0; i < hoursOfTheDay.length; i++) {
     //create a row
     var newRow = $("<div class='row'>");
@@ -34,10 +34,10 @@ $(function () {
     var notesInputArea = $(
       "<textarea class='description col-sm-10 time-block'>"
     );
-    // add metadata
+    // add metadata to the textarea
     notesInputArea.attr("data-hour", hoursOfTheDay[i]);
 
-    //apply past, present, future
+    //apply past, present, future to the text areas
     if (notesInputArea.attr("data-hour") < currentHour) {
       notesInputArea.addClass("past");
     } else if (notesInputArea.attr("data-hour") == currentHour) {
@@ -58,7 +58,7 @@ $(function () {
     //include metadata
     saveButton.attr("data-hour", hoursOfTheDay[i]);
 
-    //append it all together
+    //append cells and row together and to the container div
     newRow.append(hourDisplay, notesInputArea, saveButton);
     $(".container").append(newRow);
   }
