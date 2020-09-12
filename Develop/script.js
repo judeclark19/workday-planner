@@ -17,7 +17,7 @@ $(function () {
 
   var hoursOfTheDay = ["09", "10", "11", "12", "13", "14", "15", "16", "17"];
 
-  //loop the array
+  //Loop: dynamically creates the agenda rows
   for (let i = 0; i < hoursOfTheDay.length; i++) {
     var newRow = $("<div class='row'>");
 
@@ -25,7 +25,9 @@ $(function () {
       hoursOfTheDay[i] + ".00"
     );
 
-    var notesInputArea = $("<textarea class='description col-sm-10 time-block'>");
+    var notesInputArea = $(
+      "<textarea class='description col-sm-10 time-block'>"
+    );
     // notesInputArea.text("(no notes. type here to add notes)")
     notesInputArea.attr("data-hour", hoursOfTheDay[i]);
 
@@ -42,13 +44,11 @@ $(function () {
       notesInputArea.text(localStorage.getItem(hoursOfTheDay[i]));
     }
 
-    var saveButton = $("<button class='col-sm-1 saveBtn'>").text(
-      "SAVE")
+    var saveIcon = $("<i class='fas fa-save'>");
+    var saveButton = $("<button class='col-sm-1 saveBtn'>");
 
-    // var saveButton = $("<button class='col-sm-1 saveBtn'>")
-    // var saveImg = $("<img>").attr("src", "https://www.iconfinder.com/data/icons/apple-classic/100/Apple_classic_10Icon_5px_grid-04-512.png")
-    // saveButton.append(saveImg);
-    
+    saveButton.append(saveIcon);
+
     saveButton.attr("data-hour", hoursOfTheDay[i]);
 
     newRow.append(hourDisplay, notesInputArea, saveButton);
