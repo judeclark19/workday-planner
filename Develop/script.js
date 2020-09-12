@@ -1,11 +1,11 @@
-$(function () {
-  //array of hours
+$(function () { //document ready
 
   var now = moment();
+
   var currentHour = 12;
-  //   var currentHour = moment().format("HH");
+    // var currentHour = moment().format("HH");
   var currentDate = now.format("dddd, D MMMM");
-  var currentTime = now.format("HH:mm:ss");
+//   var currentTime = now.format("HH:mm:ss");
   $("#todays-date").text(currentDate);
 
   setInterval(function () {
@@ -16,17 +16,6 @@ $(function () {
 
   var hoursOfTheDay = ["09", "10", "11", "12", "13", "14", "15", "16", "17"];
 
-  var textAreaIDs = [
-    "nine",
-    "ten",
-    "eleven",
-    "twelve",
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-  ];
   //loop the array
   for (let i = 0; i < hoursOfTheDay.length; i++) {
     var newRow = $("<div class='row'>");
@@ -35,51 +24,41 @@ $(function () {
       hoursOfTheDay[i] + ".00"
     );
 
-    hourDisplay.attr("data-hour", hoursOfTheDay[i]);
+    var notesInputArea = $("<textarea class='description col-sm-10'>");
+    // notesInputArea.text("(no notes. type here to add notes)")
+    notesInputArea.attr("data-hour", hoursOfTheDay[i]);
 
-    var notesInputEl = $("<div class='col-sm-10 time-block'>");
 
-    notesInputEl.attr("data-hour", hoursOfTheDay[i]);
-
-    if (notesInputEl.attr("data-hour") < currentHour) {
-      notesInputEl.addClass("past");
-    } else if (notesInputEl.attr("data-hour") == currentHour) {
-      notesInputEl.addClass("present");
+    if (notesInputArea.attr("data-hour") < currentHour) {
+        notesInputArea.addClass("past");
+    } else if (notesInputArea.attr("data-hour") == currentHour) {
+        notesInputArea.addClass("present");
     } else {
-      notesInputEl.addClass("future");
+        notesInputArea.addClass("future");
     }
 
-    var textArea = $("<textarea>");
-    notesInputEl.append(textArea);
-
-    textArea.addClass("description");
+    //If a note is already stored, display it on page load
+   if (localStorage.getItem(hoursOfTheDay[i])!=null){
+   notesInputArea.text(localStorage.getItem(hoursOfTheDay[i]))
+   }
 
     var saveButton = $("<button class='col-sm-1 saveBtn'>").text(
       "click to save"
     );
     saveButton.attr("data-hour", hoursOfTheDay[i]);
 
-    newRow.append(hourDisplay, notesInputEl, saveButton);
+    newRow.append(hourDisplay, notesInputArea, saveButton);
 
     $(".container").append(newRow);
 
   }
 
-  $(document).on("click", "#hard-save", function () {
-    console.log("clicked hard save");
+  //store new notes when save is clicked
+  $(document).on("click", ".saveBtn", function (event) {
+      var storageHour = $(this).attr("data-hour")
+      var storageText = $(this).siblings(".description").val()
 
-    console.log(
-      $(this).closest(".description").text()
-    );
+    localStorage.setItem(storageHour, storageText);
 
-//   $(document).on("click", ".saveBtn", function () {
-//     console.log("clicked save button number " + $(this).attr("data-hour"));
-
-//     console.log(
-//       $(this).closest(".description").text()
-//     );
-
-    // localStorage.setItem($(this).attr('data-hour'), $(this).siblings(".description").val);
   });
-  // console log clicked save
 });
