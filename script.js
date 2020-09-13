@@ -1,12 +1,10 @@
 $(function () {
   //document ready
 
-  var now = moment();
-
   // hard code hour, uncomment for testing purposes
   // var currentHour = 12;
   var currentHour = moment().format("HH");
-  var currentDate = now.format("dddd, D MMMM");
+  var currentDate = moment().format("dddd, D MMMM");
 
   //display current date
   $("#currentDay").text(currentDate);
@@ -52,8 +50,8 @@ $(function () {
     }
 
     //build the save button
-    var saveIcon = $("<i class='fas fa-save'>");
     var saveButton = $("<button class='col-sm-1 saveBtn'>");
+    var saveIcon = $("<i class='fas fa-save'>");
     saveButton.append(saveIcon);
     //include metadata
     saveButton.attr("data-hour", hoursOfTheDay[i]);
